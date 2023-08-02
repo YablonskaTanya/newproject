@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import React, { Component } from "react";
 // import Counter from "./Counter/Counter";
 import FormLogin from "./FormLogin/FormLogin";
@@ -11,12 +12,27 @@ class App extends Component {
     isShowModal: false,
   };
 
+  componentDidMount() {
+    console.log("mount APP");
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("DidUpdate APP");
+  }
+
   showModal = () => {
     this.setState({ isShowModal: true });
   };
 
   closeModal = () => {
     this.setState({ isShowModal: false });
+  };
+
+  createUser = (data) => {
+    const newUser = {
+      ...data,
+      id: nanoid(),
+    };
+    console.log("newUser :>> ", newUser);
   };
 
   render() {
@@ -27,7 +43,10 @@ class App extends Component {
         {this.state.isShowModal && (
           <Modal closeModal={this.closeModal}>
             {/* <Counter /> */}
-            <FormLogin />
+            <FormLogin
+              createUser={this.createUser}
+              closeModal={this.closeModal}
+            />
           </Modal>
         )}
         <ToDoList />

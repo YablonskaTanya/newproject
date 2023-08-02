@@ -2,12 +2,12 @@
   {
     "id": 1,
     "title": "Learn HTML",
-    "completed": true
+    "completed": false
   },
   {
     "id": 2,
     "title": "Learn CSS",
-    "completed": true
+    "completed": false
   },
   {
     "id": 3,

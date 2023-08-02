@@ -4,7 +4,7 @@ const ToDo = ({ todo, handleCheckCompleted, handleDelete }) => {
   return (
     <li className="list-group-item">
       <div className="row justify-content-between">
-        <div className="col-10">
+        <div className="col-11">
           <input
             className="form-check-input me-2"
             type="checkbox"
@@ -15,6 +15,7 @@ const ToDo = ({ todo, handleCheckCompleted, handleDelete }) => {
         </div>
         <div className="col">
           <button
+            disabled={!todo.completed}
             onClick={() => handleDelete(todo.id)}
             type="button"
             className="btn-close"
