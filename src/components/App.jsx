@@ -1,52 +1,21 @@
-import { nanoid } from "nanoid";
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
-import ContentInfo from "./ContentInfo/ContentInfo";
-// import Counter from "./Counter/Counter";
-import FormLogin from "./FormLogin/FormLogin";
-import Header from "./Header/Header";
-import Modal from "./Modal/Modal";
-import Search from "./Search/Search";
-import ToDoList from "./ToDoList/ToDoList";
-// import { Alert } from "./Alert";
+import HomePage from "./pages/HomePage";
+import NewsPage from "./pages/NewsPage";
+import ToDoPage from "./pages/ToDoPage";
+import Layout from "./Layout/Layout";
 
 const App = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [searchText, setSearchText] = useState("");
-
-  const showModal = () => {
-    setIsShowModal(true);
-  };
-
-  const closeModal = () => {
-    setIsShowModal(false);
-  };
-
-  const createUser = (data) => {
-    const newUser = {
-      ...data,
-      id: nanoid(),
-    };
-    console.log("newUser :>> ", newUser);
-  };
-
-  const handleSearch = (searchText) => {
-    setSearchText(searchText);
-  };
-
   return (
     <>
-      <Header showModal={showModal} />
-      {/* <Counter /> */}
-      {isShowModal && (
-        <Modal closeModal={closeModal}>
-          {/* <Counter /> */}
-          <FormLogin createUser={createUser} closeModal={closeModal} />
-        </Modal>
-      )}
-      <ToDoList />
-      <Search handleSearch={handleSearch} />
-      <ContentInfo searchText={searchText} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/todo" element={<ToDoPage />} />
+        </Route>
+        {/* <Route path="/login" element={<FormLogin />} /> */}
+      </Routes>
     </>
   );
 };

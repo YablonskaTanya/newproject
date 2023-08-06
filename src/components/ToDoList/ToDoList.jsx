@@ -2,13 +2,12 @@ import ToDo from "../ToDo/ToDo";
 import FormTodo from "../FormTodo/FormTodo";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const KEY_LOCALSTORAGE = "todo";
 
 const ToDoList = () => {
   const [todoList, setTodoList] = useState("");
-  const [isDelete, setIsDelete] = useState(false);
-  const [isCreate, setIsCreste] = useState(false);
 
   useEffect(() => {
     const localTodo = localStorage.getItem(KEY_LOCALSTORAGE);
@@ -33,10 +32,7 @@ const ToDoList = () => {
       return prevTodolist.filter((todo) => todo.id !== id);
     });
 
-    setIsDelete(true);
-    setTimeout(() => {
-      setIsDelete(false);
-    }, 1500);
+    toast.error("delete is successfully");
   };
 
   const addToDo = (value) => {
@@ -51,27 +47,13 @@ const ToDoList = () => {
       ];
     });
 
-    setIsCreste(true);
-    setTimeout(() => {
-      setIsCreste(false);
-    }, 1500);
+    toast.success("create is successfully");
   };
 
   return (
     <>
       <h1>My To-Do list</h1>
-      {isCreate && (
-        <div className="alert alert-success" role="alert">
-          To-do create successfully!
-        </div>
-      )}
-      {isDelete && (
-        <div className="alert alert-danger" role="alert">
-          To-do delete successfully!
-        </div>
-      )}
       <FormTodo addToDo={addToDo} />
-
       {todoList && (
         <ul className="list-group list-group-flush">
           {todoList.map((todo) => (
