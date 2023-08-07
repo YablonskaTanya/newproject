@@ -4,11 +4,16 @@ import { getNews } from "../../servises/getNews";
 import ErrorCard from "../ErrorCard/ErrorCard";
 
 import React from "react";
+import { useCustomContext } from "../../Context/Context";
 
 const ContentInfo = ({ searchText }) => {
-  const [news, setNews] = useState(null);
+  const { news, setNews } = useCustomContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // useEffect(() => {
+  //   news && setIsLoading(true);
+  // }, [news]);
 
   useEffect(() => {
     if (!searchText) return;
@@ -59,7 +64,7 @@ const ContentInfo = ({ searchText }) => {
         {news &&
           news.map((el) => {
             return (
-              <div key={el.url} className="" style={{ width: "23%" }}>
+              <div key={el.url} className="" style={{ width: "24%" }}>
                 <div className="card">
                   <img
                     src={el.urlToImage}

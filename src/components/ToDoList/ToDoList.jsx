@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const KEY_LOCALSTORAGE = "todo";
+export const KEY_LOCALSTORAGE = "todo";
 
 const ToDoList = () => {
   const [todoList, setTodoList] = useState("");
@@ -55,7 +55,12 @@ const ToDoList = () => {
       <h1>My To-Do list</h1>
       <FormTodo addToDo={addToDo} />
       {todoList && (
-        <ul className="list-group list-group-flush">
+        <ul
+          className="list-group list-group-flush"
+          style={{
+            gap: 5,
+          }}
+        >
           {todoList.map((todo) => (
             <ToDo
               key={todo.id}

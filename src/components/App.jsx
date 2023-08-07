@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import NewsPage from "./pages/NewsPage";
 import ToDoPage from "./pages/ToDoPage";
 import Layout from "./Layout/Layout";
+import ToDoDetails from "./ToDo/ToDoDetails";
 
 const App = () => {
   return (
@@ -11,8 +12,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/todo" element={<ToDoPage />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="todo" element={<ToDoPage />} />
+
+          <Route path="todo/:id" element={<ToDoDetails />} />
         </Route>
         {/* <Route path="/login" element={<FormLogin />} /> */}
       </Routes>
