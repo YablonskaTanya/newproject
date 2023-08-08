@@ -1,10 +1,17 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
-import NewsPage from "./pages/NewsPage";
-import ToDoPage from "./pages/ToDoPage";
 import Layout from "./Layout/Layout";
-import ToDoDetails from "./ToDo/ToDoDetails";
+import HomePage from "./pages/HomePage";
+// import LoginPage from "./pages/LoginPage";
+// import NewsPage from "./pages/NewsPage";
+// import ToDoPage from "./pages/ToDoPage";
+// import ToDoDetails from "./ToDo/ToDoDetails";
+
+const NewsPage = lazy(() => import("./pages/NewsPage"));
+const ToDoPage = lazy(() => import("./pages/ToDoPage"));
+const ToDoDetails = lazy(() => import("./ToDo/ToDoDetails"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
 
 const App = () => {
   return (
@@ -16,8 +23,23 @@ const App = () => {
           <Route path="todo" element={<ToDoPage />} />
 
           <Route path="todo/:id" element={<ToDoDetails />} />
+          <Route
+            path="/login"
+            element={
+              <Suspense>
+                <LoginPage />
+              </Suspense>
+            }
+          />
         </Route>
-        {/* <Route path="/login" element={<FormLogin />} /> */}
+        {/* <Route
+          path="/login"
+          element={
+            <Suspense>
+              <LoginPage />
+            </Suspense>
+          }
+        /> */}
       </Routes>
     </>
   );

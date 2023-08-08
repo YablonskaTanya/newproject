@@ -1,12 +1,7 @@
-import React from "react";
 import ToDoList from "../ToDoList/ToDoList";
 
 const ToDoPage = () => {
-  return (
-    <>
-      <ToDoList />
-    </>
-  );
+  return <ToDoList />;
 };
 
 export default ToDoPage;

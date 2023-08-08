@@ -1,7 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = ({ showModal }) => {
+  const navigate = useNavigate();
+
+  const handleLoginPage = () => {
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar bg-dark mb-3">
       <div className="container-fluid">
@@ -37,6 +43,13 @@ const Header = ({ showModal }) => {
               type="submit"
             >
               Open Modal
+            </button>
+            <button
+              onClick={handleLoginPage}
+              className="btn btn-outline-success"
+              type="submit"
+            >
+              Login
             </button>
           </div>
         </div>

@@ -13,9 +13,10 @@ const ToDoList = () => {
   const [filteredTodoList, setfilteredTodoList] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log("filter=", searchParams.get("filter"));
+  // console.log("filter=", searchParams.get("filter"));
 
   const filterText = searchParams.get("filter") ?? "";
+  // console.log("searchParams :>> ", Object.fromEntries([...searchParams]));
 
   useEffect(() => {
     const localTodo = localStorage.getItem(KEY_LOCALSTORAGE);
@@ -31,7 +32,7 @@ const ToDoList = () => {
     todoList &&
       setfilteredTodoList(
         todoList?.filter((todo) =>
-          todo.title.toLowerCase().includes(filterText.toLowerCase())
+          todo.title.toLowerCase().includes(filterText.trim().toLowerCase())
         )
       );
   }, [filterText, searchParams, todoList]);

@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 import Header from "../Header/Header";
 import Modal from "../Modal/Modal";
 import FormLogin from "../FormLogin/FormLogin";
+import { Suspense } from "react";
 
 const Layout = () => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -30,7 +31,10 @@ const Layout = () => {
     <div className="container">
       <Toaster position="top-right" toastOption={{ duration: 1500 }} />
       <Header showModal={showModal} />
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
+
       {isShowModal && (
         <Modal closeModal={closeModal}>
           <FormLogin createUser={createUser} closeModal={closeModal} />
