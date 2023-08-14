@@ -1,18 +1,21 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "../../store/counter/actions";
 
 const Counter = () => {
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
+  const { total, step } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
-  const handleClickIncrement = () => setValue((prevValue) => prevValue + 1);
-
-  const handleClickDecrement = () => setValue((prevValue) => prevValue - 1);
+  const handleClickIncrement = () => dispatch(increment(step));
+  const handleClickDecrement = () => dispatch(decrement(step));
 
   return (
-    <div className="card bg-dark text-white " style={{ width: "470px" }}>
+    <div className="position-absolute top-50 start-50 translate-middle">
       <div className="card-body">
         <h5 className="card-title text-center fs-1">Counter</h5>
         <p className="card-text  text-center" style={{ fontSize: "80px" }}>
-          {value}
+          {total}
         </p>
         <div className="d-flex justify-content-center px-5">
           <button
