@@ -1,20 +1,23 @@
 import React, { Suspense, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useCustomContext } from "../../Context/Context";
-import { KEY_LOCALSTORAGE } from "../ToDoList/ToDoList";
+import { KEY_LOCAL_STORAGE } from "../ToDoList/ToDoList";
 import ToDo from "./ToDo";
+import { useSelector } from "react-redux";
 
 const ToDoDetails = () => {
   const params = useParams();
-  const { todoList, setTodoList } = useCustomContext();
+  // const { todoList, setTodoList } = useCustomContext();
+  const { todo: todoList } = useSelector((state) => state.todo);
+
   // console.log("params :>> ", params);
   const location = useLocation();
   console.log("location :>> ", location);
 
-  useEffect(() => {
-    const localTodo = localStorage.getItem(KEY_LOCALSTORAGE);
-    if (localTodo) setTodoList(JSON.parse(localTodo));
-  }, [setTodoList]);
+  // useEffect(() => {
+  //   const localTodo = localStorage.getItem(KEY_LOCAL_STORAGE);
+  //   if (localTodo) setTodoList(JSON.parse(localTodo));
+  // }, [setTodoList]);
 
   return (
     <Suspense>

@@ -1,36 +1,38 @@
 import ToDo from "../ToDo/ToDo";
 import FormTodo from "../FormTodo/FormTodo";
-import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import FormFilterTodo from "../FormTodo/FormFilterTodo";
 import { useSearchParams } from "react-router-dom";
+import { createTodo } from "../../store/todo/actions";
+import { useDispatch, useSelector } from "react-redux";
 
-export const KEY_LOCALSTORAGE = "todo";
+export const KEY_LOCAL_STORAGE = "todo";
 
 const ToDoList = () => {
-  const [todoList, setTodoList] = useState("");
-  const [filteredTodoList, setfilteredTodoList] = useState(null);
+  // const [todoList, setTodoList] = useState("");
+
+  const { todo: todoList } = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
+  const [filteredTodoList, setFilteredTodoList] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  // console.log("filter=", searchParams.get("filter"));
 
   const filterText = searchParams.get("filter") ?? "";
-  // console.log("searchParams :>> ", Object.fromEntries([...searchParams]));
 
-  useEffect(() => {
-    const localTodo = localStorage.getItem(KEY_LOCALSTORAGE);
-    if (localTodo) setTodoList(JSON.parse(localTodo));
-  }, []);
+  // useEffect(() => {
+  //   const localTodo = localStorage.getItem(KEY_LOCAL_STORAGE);
+  //   if (localTodo) setTodoList(JSON.parse(localTodo));
+  // }, []);
+
+  // useEffect(() => {
+  //   todoList &&
+  //     localStorage.setItem(KEY_LOCAL_STORAGE, JSON.stringify(todoList));
+  // }, [todoList]);
 
   useEffect(() => {
     todoList &&
-      localStorage.setItem(KEY_LOCALSTORAGE, JSON.stringify(todoList));
-  }, [todoList]);
-
-  useEffect(() => {
-    todoList &&
-      setfilteredTodoList(
+      setFilteredTodoList(
         todoList?.filter((todo) =>
           todo.title.toLowerCase().includes(filterText.trim().toLowerCase())
         )
@@ -38,33 +40,32 @@ const ToDoList = () => {
   }, [filterText, searchParams, todoList]);
 
   const handleCheckCompleted = (id) => {
-    setTodoList((prevTodolist) => {
-      return prevTodolist.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      );
-    });
+    // setTodoList((prevTodoList) => {
+    //   return prevTodoList.map((todo) =>
+    //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    //   );
+    // });
   };
 
   const handleDelete = (id) => {
-    setTodoList((prevTodolist) => {
-      return prevTodolist.filter((todo) => todo.id !== id);
-    });
-
-    toast.error("delete is successfully");
+    // setTodoList((prevTodoList) => {
+    //   return prevTodoList.filter((todo) => todo.id !== id);
+    // });
+    // toast.error("delete is successfully");
   };
 
   const addToDo = (value) => {
-    setTodoList((prevTodolist) => {
-      return [
-        ...prevTodolist,
-        {
-          id: nanoid(),
-          title: value,
-          completed: false,
-        },
-      ];
-    });
-
+    // setTodoList((prevTodoList) => {
+    //   return [
+    //     ...prevTodoList,
+    //     {
+    //       id: nanoid(),
+    //       title: value,
+    //       completed: false,
+    //     },
+    //   ];
+    // });
+    dispatch(createTodo(value));
     toast.success("create is successfully");
   };
 
@@ -106,17 +107,17 @@ export default ToDoList;
 //     isCreate: false,
 //   };
 //   componentDidMount() {
-//     localStorage.getItem(KEY_LOCALSTORAGE, JSON.stringify(todo));
+//     localStorage.getItem(KEY_LOCAL_STORAGE, JSON.stringify(todo));
 // if(localStorage.getItem('todo'))
 //     this.setState({
-//       todoList: JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE)),
+//       todoList: JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE)),
 //     });
 //   }
 
 //   componentDidUpdate(prevProps, prevState) {
 //     if (prevState.todoList.length < this.state.todoList.length) {
 //       localStorage.setItem(
-//         KEY_LOCALSTORAGE,
+//         KEY_LOCAL_STORAGE,
 //         JSON.stringify(this.state.todoList)
 //       );
 //       this.setState({ isDelete: true });
@@ -128,7 +129,7 @@ export default ToDoList;
 
 //     if (prevState.todoList.length > this.state.todoList.length) {
 //       localStorage.setItem(
-//         KEY_LOCALSTORAGE,
+//         KEY_LOCAL_STORAGE,
 //         JSON.stringify(this.state.todoList)
 //       );
 //       this.setState({ isCreate: true });

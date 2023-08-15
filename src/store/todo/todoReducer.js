@@ -1,15 +1,30 @@
+import { createReducer } from "@reduxjs/toolkit";
 import { todoInitialState } from "./initialState";
-import { CREATETODO } from "./types";
+import { createTodo } from "./actions";
 
-export const todoReducer = (state = todoInitialState, action) => {
-  switch (action.type) {
-    case CREATETODO:
-      return {
-        ...state,
-        todo: [...state.todo, { ...action.payload }],
-      };
+export const todoReducer = createReducer(todoInitialState, {
+  // [createTodo]: (state, action) => state.todo.push(action.payload),
 
-    default:
-      return state;
-  }
-};
+  [createTodo]: (state, action) => ({
+    ...state,
+    todo: [...state.todo, { ...action.payload }],
+  }),
+});
+
+// import { CREATE_TODO } from "./types";
+
+// export const todoReducer = (state = todoInitialState, action) => {
+//   switch (action.type) {
+//     case CREATE_TODO:
+//       return {
+//         ...state,
+//         todo: [...state.todo, { ...action.payload }],
+//       };
+
+//     default:
+//       return state;
+//   }
+// };
+
+// ...state,
+// todo: [...state.todo, { ...action.payload }],

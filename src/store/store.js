@@ -1,7 +1,20 @@
-import { createStore } from "redux";
-import { reducer } from "./reducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-export const store = createStore(reducer);
+import { reducer } from "./reducer";
 
 // store.dispatch({ type: "increment", payload: 1 });
 // console.log("store.getState() :>> ", store.getState());
+
+const persistConfig = {
+  key: "todo",
+  storage,
+  blacklist: ["counter"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+export const store = configureStore({ reducer: persistedReducer });
+
+export const persistor = persistStore(store);
